@@ -6,27 +6,43 @@ import matplotlib.dates as mdates
 import matplotlib.pylab as pylab
 import seaborn as sns
 
-# Import csv file with proper datetime format
-df = pd.read_csv("Clean_Data/TDR_data_clean_VWC.csv", parse_dates={'date_time': [0]}, dayfirst = True)
+# Import csv files with proper datetime format
+soil_df = pd.read_csv("Clean_Data/TDR_data_clean_VWC.csv", parse_dates={'date_time': [0]}, dayfirst = True)
+irr_df = pd.read_csv("Clean_Data/Irrigation.csv", parse_dates={'date_time': [0]}, dayfirst = True)
+stem_df = pd.read_csv("Clean_Data/SWP.csv", parse_dates={'date_time': [0]}, dayfirst = True) 
 
 # Edit column header names to enable splitting later on
-df.columns = (df.columns.str.replace(' ', '_').str.replace('(', '')
-              .str.replace(')', '') .str.replace(',', '').str.replace('\'', '')
-              .str.replace('Interface', '').str.replace('Sensor_', ''))
+soil_df.columns = (soil_df.columns.str.replace(' ', '_').str.replace('(', '')
+                   .str.replace(')', '') .str.replace(',', '').str.replace('\'', '')
+                   .str.replace('Interface', '').str.replace('Sensor_', ''))
 
 # Start and finish (needed for x-limits)
-start = df.date_time.min()
-finish = df.date_time.max()
+start = soil_df.date_time.min()
+finish = soil_df.date_time.max()
 months = mdates.MonthLocator()
 
-# Melt dataframe to long format. Easier for plutting.
-df = pd.melt(df, id_vars = 'date_time')
+# Melt dataframe to long format. Easier for plotting.
+soil_df = pd.melt(soil_df, id_vars = 'date_time')
+stem_df = pd.melt(stem_df, id_vars = 'date_time')
+
+
+# Multiply SWP values by 100 so that they appear on plot
+stem_df['value'] = stem_df['value']*100
 
 # Remove values that are totally illogical (e.g., more than 100%)
-df = df[df.value < 100]
+soil_df = soil_df[soil_df.value < 100]
 
 # Separate 'variable' column into components
-df['Area'], df['Variable'], df['Sensor'] = df['variable'].str.split('_').str
+soil_df['Area'], soil_df['Variable'], soil_df['Sensor'] = soil_df['variable'].str.split('_').str
+
+# Add columns to SWP and Irrigation dataframes so that they match soil data
+stem_df['Area'] = stem_df['variable']
+stem_df ['Variable'] = 'Irr'
+stem_df ['Sensor'] = 4
+
+# Stack dataframes
+frames = [soil_df, stem_df]
+df = pd.concat(frames)
 
 
 # Create facet plot using seaborn
