@@ -7,6 +7,10 @@ https://pdfs.semanticscholar.org/239a/8c8289ed5265df7a9a0e46d58e079f3e0211.pdf
 
 https://stats.stackexchange.com/questions/133656/how-to-understand-the-drawbacks-of-k-means
 
+http://didawiki.cli.di.unipi.it/lib/exe/fetch.php/dm/time_series_from_keogh_tutorial.pdf
+
+https://pypi.org/project/dtaidistance/
+
 Finding Groups in Data: An Introduction to Cluster Analysis
 https://onlinelibrary.wiley.com/doi/book/10.1002/9780470316801
 
@@ -17,3 +21,12 @@ https://stats.stackexchange.com/questions/3331/is-it-possible-to-do-time-series-
 https://towardsdatascience.com/playing-with-time-series-data-in-python-959e2485bff8
 
 https://www.sciencedirect.com/science/article/pii/S0960148110004234
+
+https://datascience.stackexchange.com/questions/3738/how-to-deal-with-time-series-which-change-in-seasonality-or-other-patterns
+
+https://nbviewer.jupyter.org/github/alexminnaar/time-series-classification-and-clustering/blob/master/Time%20Series%20Classification%20and%20Clustering.ipynb
+
+http://alexminnaar.com/time-series-classification-and-clustering-with-python.html
+
+Seaborn asthetics
+https://seaborn.pydata.org/tutorial/aesthetics.html
