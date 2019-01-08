@@ -6,7 +6,7 @@
 ## First look
 ### TDR Data:
 - We have interfaces A, B, C, D, E, F, G, H, I, J (assuming these are locations in the field)
-- For each "interface" there are three sensors. Corresponding to depth or location?
+- For each "interface" there are three sensors. Corresponding to 30cm depth. Map shows specific locations. I don't think, for now, that the locations are that important.
 - Variables:
   - Volumetric water content $(\frac{V_w}{V_t})$, where $V_w$ is the volume of water and $V_t$ is the total volume of the soil (i.e., the volume of the solid, air, and water fractions together). A fully "saturated" soil (a soil where all of the pore space is occupied by water) would have a VWC of around 45.0.
   - Soil temperature (Celsius)

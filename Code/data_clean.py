@@ -10,7 +10,7 @@ from datetime import timedelta
 
 
 # Import csv file with proper datetime format and approriate header
-df = pd.read_csv("Raw_Data/TDR_data_2.csv", parse_dates={'datetime': [0, 1]},
+df = pd.read_csv("Raw_Data/TDR_data.csv", parse_dates={'datetime': [0, 1]},
                  header = [0, 1, 3])
 
 # Fix datetime so that midnight displays as 0:00 on the following day

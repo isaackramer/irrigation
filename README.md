@@ -10,7 +10,7 @@ This folder contains all the data, code, and output for the project. See subfold
 #### Clean data
 - TDR_data_clean.csv: All the variables from the soil sensors in a "clean" format. Removed "0.0" values and "-" from the original file and replaced them with nan. Proper datetime format used.
 - TDR_data_clean_VWC.csv: Same data, but removed all variables except the volumetric water content (VWC).
-- - TDR_data_clean_VWC.csv: Same as the above file, but only two days of data. Makes processing plots a bit faster...
+- TDR_data_clean_VWC.csv: Same as the above file, but only two days of data. Makes processing plots a bit faster...
 
 #### Scripts
 - data_clean.py: Cleans the data.
