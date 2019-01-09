@@ -23,6 +23,7 @@ months = mdates.MonthLocator()
 
 # Melt dataframe to long format. Easier for plotting.
 soil_df = pd.melt(soil_df, id_vars = 'date_time')
+irr_df = pd.melt(irr_df, id_vars = 'date_time')
 stem_df = pd.melt(stem_df, id_vars = 'date_time')
 
 
@@ -36,12 +37,15 @@ soil_df = soil_df[soil_df.value < 100]
 soil_df['Area'], soil_df['Variable'], soil_df['Sensor'] = soil_df['variable'].str.split('_').str
 
 # Add columns to SWP and Irrigation dataframes so that they match soil data
+irr_df['Area'] = irr_df['variable']
+irr_df ['Variable'] = 'Irr'
+irr_df ['Sensor'] = 4
 stem_df['Area'] = stem_df['variable']
-stem_df ['Variable'] = 'Irr'
-stem_df ['Sensor'] = 4
+stem_df ['Variable'] = 'SWP'
+stem_df ['Sensor'] = 5
 
 # Stack dataframes
-frames = [soil_df, stem_df]
+frames = [soil_df, irr_df, stem_df]
 df = pd.concat(frames)
 
 
@@ -53,6 +57,12 @@ g.add_legend()
 g.set_axis_labels("Time", "VWC") 
 g.set_titles("Treatment {col_name}") 
 g.fig.subplots_adjust(wspace=.05, hspace=.3)
+# title
+new_title = 'Variable'
+g._legend.set_title(new_title)
+# replace labels
+new_labels = ['Sensor 1', 'Sensor 2', 'Sensor 3', 'Irrigation', 'SWP']
+for t, l in zip(g._legend.texts, new_labels): t.set_text(l)
 
 # Adjust axis tiks
 for ax in g.axes.flatten():
