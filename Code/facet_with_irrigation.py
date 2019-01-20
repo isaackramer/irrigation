@@ -7,9 +7,9 @@ import matplotlib.pylab as pylab
 import seaborn as sns
 
 # Import csv files with proper datetime format
-soil_df = pd.read_csv("Clean_Data/TDR_data_clean_VWC.csv", parse_dates={'date_time': [0]}, dayfirst = True)
+soil_df = pd.read_csv("Clean_Data/Good_Sensors_Only_VWC.csv", parse_dates={'date_time': [0]}, dayfirst = True)
 irr_df = pd.read_csv("Clean_Data/Irrigation.csv", parse_dates={'date_time': [0]}, dayfirst = True)
-stem_df = pd.read_csv("Clean_Data/SWP.csv", parse_dates={'date_time': [0]}, dayfirst = True) 
+stem_df = pd.read_csv("Clean_Data/SWP_Long.csv", parse_dates={'date_time': [0]}, dayfirst = True) 
 
 # Edit column header names to enable splitting later on
 soil_df.columns = (soil_df.columns.str.replace(' ', '_').str.replace('(', '')
@@ -28,7 +28,7 @@ stem_df = pd.melt(stem_df, id_vars = 'date_time')
 
 
 # Multiply SWP values by 100 so that they appear on plot
-stem_df['value'] = stem_df['value']*100
+stem_df['value'] = stem_df['value']*-10
 
 # Remove values that are totally illogical (e.g., more than 100%)
 soil_df = soil_df[soil_df.value < 100]
