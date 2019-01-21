@@ -30,3 +30,6 @@ http://alexminnaar.com/time-series-classification-and-clustering-with-python.htm
 
 Seaborn asthetics
 https://seaborn.pydata.org/tutorial/aesthetics.html
+
+Interactive Data Visualization Tutorial:
+https://realpython.com/python-data-visualization-bokeh/
