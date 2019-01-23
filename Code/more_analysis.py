@@ -10,7 +10,7 @@ from dtaidistance import dtw
 
 
 # Import csv file with proper datetime format
-df = pd.read_csv("Clean_Data/TDR_data_clean_VWC.csv", parse_dates={'date_time': [0]}, dayfirst = True)
+df = pd.read_csv("Clean_Data/Good_Sensors_Only_VWC.csv", parse_dates={'date_time': [0]}, dayfirst = True)
 
 # Edit column header names to enable splitting later on
 df.columns = (df.columns.str.replace(' ', '_').str.replace('(', '')
