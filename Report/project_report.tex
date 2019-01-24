@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{csquotes}
 \usepackage{chemmacros}
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -88,6 +89,61 @@ We continued the data cleaning process by removing values at times when the sens
 \end{figure}
 
 \section{Results}
+\subsection{Relationship between Plant Health and Soil Water Content}
+At the heart of this experiment is the expectation that higher values for Volumetric Water Content (VWC) will lead to smaller (i.e., less negative) values of Stem Water Potential (SWP). That is, that increased water availability will lead to healthier plants. We therefore sought to test this assumption.
+
+Our code (SWP\_scatter.py) compares the SWC to the SWP, restricting analysis to the days in which the SWP was measured. Plotting all the values for SWP against SWC, as shown in \autoref{fig:SWP_scatter} we see little visible correlation.
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.4\textheight]
+        {figures/SWP_scatter_all.pdf}}
+        \caption{\label{fig:SWP_scatter} Scatter plot showing the Stem Water Potential against Volumetric Water Content (SWP\_scatter.py).}
+\end{figure}
+
+Dividing the data according to sensor, however, we begin to see actual trends. In \autoref{fig:SWP_facet} we can start to see that as SWC declines, the SWP becomes more negative, in most cases. \autoref{tab:linear} shows the R-Squared values for each of the sensors, based on linear models. With the exception of area D and area H, the R-Squared values and plots indicate that there is a correlation between SWC and SWP. The fact that we do not see a clear trend when all the data is plotted together is not surprising, since heterogeneity in the soil and other factors (e.g., position with respect to the sun) can easily explain why plants in two different areas would respond differently to the same SWC. That we do see clear trends on an individual sensor basis reinforces the need to account for heterogeneity in agricultural systems.
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.90\textheight]
+        {figures/SWP_facet.pdf}}
+        \caption{\label{fig:SWP_facet} Scatter plot showing the Stem Water Potential against Volumetric Water Content (SWP\_scatter.py).}
+\end{figure}
+
+\begin{table}[!htb]
+\centering
+\caption{R-Squared values from linear models of SWP as a function of SWC}
+\label{tab:linear}
+\begin{tabular}{@{}cc@{}}
+\toprule
+\textbf{Sensor} & \textbf{R-Squared} \\ \midrule
+A1            & 0.44               \\
+A2            & 0.70               \\
+A3            & 0.58               \\
+B1            & 0.53               \\
+B2            & 0.57               \\
+B3            & 0.41               \\
+C2            & 0.60               \\
+C3            & 0.36               \\
+D1            & 0.00               \\
+D2            & 0.00               \\
+D3            & 0.10               \\
+E1            & 0.38               \\
+E3            & 0.30               \\
+F1            & 0.09               \\
+F2            & 0.27               \\
+F3            & 0.38               \\
+G1            & 0.45               \\
+H1            & 0.341              \\
+H2            & 0.17               \\
+H3            & 0.04               \\
+I1            & 0.45               \\
+I3            & 0.63               \\
+J2            & 0.39               \\
+J3            & 0.64               \\ \bottomrule
+\end{tabular}
+\end{table}
+
+
+
 \subsection{Effect of Slope and Soil Depth on Water Loss Rate}
 The plots show that some of the soils lose water at a much faster rate following an irrigation event than others. For example, if we compare Areas C and D, we see that the volumetric water content declines much faster for the sensors located in Area C than for the sensors located in Area D. The researchers working on this project hypothesized that one reason for this might be variations in slope and soil depth.
 
@@ -99,7 +155,8 @@ To investigate this question, we wrote a code that calculated the "rate of decli
         \caption{\label{fig:irrigation-max} Plot showing the maximum volumetric water contents reached for Area A, Sensor 1 as identified by the code in slopes.py}
 \end{figure}
 
-Unfortunately, our results showed little connection between the "average loss rate" and the soil slope and/or soil depth. \autoref{fig:slope} includes plots showing the average loss rate following an irrigation event vs. slope and soil depth (cm). As is clear in these plots, no visible relationship exists between the variables. An attempt to build a multiple linear regression model using both slope and soil depth as explanatory variables also produced an R-squared value of nearly 0.0. The results did not change when we varied the length of time following an irrigation maximum used to calculate the average loss rate. 
+Unfortunately, our results showed little connection between the "average loss rate" and the soil slope and/or soil depth. \autoref{fig:slope} includes plots showing the average loss rate following an irrigation event vs. slope and soil depth (cm). As is clear in these plots, no visible relationship exists between the variables. An attempt to build a multiple linear regression model using both slope and soil depth as explanatory variables also produced an R-squared value of nearly 0.0. The results did not change when we varied the length of time following an irrigation maximum used to calculate the average loss rate.
+
 
 
 \begin{figure}[!htb]

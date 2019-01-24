@@ -89,7 +89,7 @@ deriv_df['aspect'] = sensor_df['aspect']
         
 X = deriv_df[["slope", "soil_depth"]]
 y = deriv_df["loss_rate"]
-X = sm.add_constant(X) ## let's add an intercept (beta_0) to our model
+#X = sm.add_constant(X) ## let's add an intercept (beta_0) to our model
 
 # Note the difference in argument order
 model = sm.OLS(y, X).fit()
@@ -113,3 +113,5 @@ plt.savefig("Output/soil_depth_loss.pdf")
 
 #
 #plt.show()
+
+
