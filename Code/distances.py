@@ -1,33 +1,49 @@
-"""Calculate euclidean distances - between rows / columns"""
-
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from scipy.spatial.distance import pdist, squareform
 
 
-# Import csv file with proper datetime format
-df = pd.read_csv("Clean_Data/Good_Sensors_Only_VWC.csv", parse_dates={'date_time': [0]}, dayfirst=True)
+# noinspection SpellCheckingInspection
+def p_norm(dataframe, p=2):
+    """ Returns a data frame containing p-norm distances matrix of the input data frame. If the data contains
+        any NaN values, they are interpolated.
+        Args:
+            dataframe (pandas.core.frame.DataFrame) - a data frame containing the data columns we want to compare
+            p (int; optional) - determines which p-norm to use (defaults to 2, and has to be >= 1)
+    """
+    assert (p >= 1 and p == int(p)), "p has to be an int >= 1"
+    # we interpolate the dataframe in order to replace NaN values
+    df_interpolated = dataframe.interpolate()
+    # We use the transpose values matrix so the columns become row vectors for pdist
+    distances_matrix = squareform(pdist(df_interpolated.values.T, metric='minkowski', p=p))
+    # Convert into a data frame
+    distances_matrix_df = (lambda v, c: pd.DataFrame(v, c, c))(distances_matrix, df_no_date.columns)
 
-# Edit column header names to enable splitting later on
-df.columns = (df.columns.str.replace(' ', '_').str.replace('(', '')
-              .str.replace(')', '').str.replace(',', '').str.replace('\'', '')
-              .str.replace('Interface', '').str.replace('Sensor_', ''))
-# remove first column (date-time)
-df_no_date = df.drop(df.columns[0], axis=1)
+    return distances_matrix_df
 
-df_columns = df_no_date.values.T  # columns as rows
 
-# some clever trick from SO - euclidean distance between columns (pair-wise)
-# NOTE: we ignore here NaN values (i.e, treating them as zeros)
-euclidean_matrix = np.nansum((df_columns - df_columns[:, None]) ** 2, axis=2) ** 0.5
-euclidean_df = (lambda v, c: pd.DataFrame(v, c, c))(euclidean_matrix, df_no_date.columns)
-plt.figure()
-sns.heatmap(euclidean_df, cmap="hot")
-plt.show()
+# Simple example
+if __name__ == "__main__":
+    # Import csv file with proper datetime format
+    df = pd.read_csv("Clean_Data/nan_reduced_VWC.csv", parse_dates={'date_time': [0]}, dayfirst=True)
 
-L1_matrix = np.nansum(np.abs(df_columns - df_columns[:, None]), axis=2)
-L1_df = (lambda v, c: pd.DataFrame(v, c, c))(L1_matrix, df_no_date.columns)
-plt.figure()
-sns.heatmap(L1_df, cmap="hot")
-plt.show()
+    # Edit column header names to enable splitting later on
+    df.columns = (df.columns.str.replace(' ', '_').str.replace('(', '')
+                  .str.replace(')', '').str.replace(',', '').str.replace('\'', '')
+                  .str.replace('Interface', '').str.replace('Sensor_', ''))
+
+    # remove first column (date-time)
+    df_no_date = df.drop(df.columns[0], axis=1)
+
+    euclidean_dists_df = p_norm(df_no_date)
+    plt.figure()
+    sns.heatmap(euclidean_dists_df, cmap="hot")
+    plt.title("Euclidean distances matrix")
+    plt.show()
+
+    L1_dists_df = p_norm(df_no_date, p=1)
+    plt.figure()
+    sns.heatmap(L1_dists_df, cmap="hot")
+    plt.title("L1 distances matrix")
+    plt.show()
