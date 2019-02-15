@@ -105,7 +105,7 @@ class TestCase(Enum):
 if __name__ == "__main__":
 
     # change this number to try different tests (see the TestCase class enumeration)
-    tc = 2
+    tc = 3
 
     if tc == TestCase.VWC_P_NORM.value:
         # Import csv file with proper datetime format
@@ -167,7 +167,7 @@ if __name__ == "__main__":
         # we interpolate the dataframe in order to replace NaN values
         df3_interpolated = df3.interpolate()
 
-        SAMPLING_RATE = 'H'
+        SAMPLING_RATE = '3H'
         dtw_df = Distances.dtw_matrix(df3_interpolated, SAMPLING_RATE)
         dtw_df.to_pickle('dtw_distances_' + SAMPLING_RATE + '_sampling.pkl')
         plt.figure()
