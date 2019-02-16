@@ -1,7 +1,18 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from scipy.spatial.distance import squareform
 from sklearn.cluster import KMeans
 from pandas import DataFrame
+from scipy.cluster.hierarchy import linkage, dendrogram
+
+
+# noinspection PyPep8Naming
+def clustering_demo():
+    df = pd.read_pickle('dtw_distances_H_sampling.pkl')
+    condensed_distance_matrix = squareform(df.values)
+    Z = linkage(condensed_distance_matrix, metric='precomputed')
+    dendrogram(Z, orientation='right', labels=df.columns.tolist())
+    plt.show()
 
 # read the data from "TDR_data_clean_VWC.csv" file
 def read_data():
