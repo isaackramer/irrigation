@@ -89,7 +89,7 @@ We continued the data cleaning process by removing values at times when the sens
 \end{figure}
 
 \section{Results}
-\subsection{Relationship between Plant Health and Soil Water Content}
+\subsection{Relationship between Plant Health and Soil Water Content}\label{sec:Scatter-SWP}
 At the heart of this experiment is the expectation that higher values for Volumetric Water Content (VWC) will lead to smaller (i.e., less negative) values of Stem Water Potential (SWP). That is, that increased water availability will lead to healthier plants. We therefore sought to test this assumption.
 
 Our code (SWP\_scatter.py) compares the SWC to the SWP, restricting analysis to the days in which the SWP was measured. Plotting all the values for SWP against SWC, as shown in \autoref{fig:SWP_scatter} we see little visible correlation.
@@ -142,6 +142,33 @@ J3            & 0.64               \\ \bottomrule
 \end{tabular}
 \end{table}
 
+\subsection{Applications of Dynamic Time Warping and Clustering to Plant Health and Soil Water Content}
+We continued to explore the relationship between soil water content and stem water potential through the application of dynamic time warping (DTW) and clustering techniques. DTW is a tool used to measure the similarity between time series data. It can be used to identify similarity in cases when the sequences move at different speeds or experience different amplitudes. We believe that this was an appropriate method to use with the current dataset because it could identify identify soils (i.e., sensors) that behave relatively similarly, even when their specific wetting and drying speeds and overall maximum are different.
+
+We began our analysis using PyPI's DTW package and working only with the SWC data (distances.py). Due to the long running time of the algorithm, we resampled the data to intervals of 1 hour (rather than the original 5 minutes intervals). The results are shown in \autoref{fig:DTW-matrix}. The matrix in this figure shows the similarity between each pair of SWC sensors, with dark squares indicating sensors that are more similar.
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.4\textheight]
+        {figures/DTW_Matrix.jpeg}}
+        \caption{\label{fig:DTW-matrix} Matrix showing the application of DTW to the VWC data.}
+\end{figure}
+
+Next, we sought to apply a clustering algorithm to help us identify which soils were most similar. Due to high-dimensionality of our data, we used hierarchical clustering instead of K-means. We relied on the scipy package to perform the clustering (VWCclustering.py). The results of our clustering our shown in \autoref{fig:DTW-clustering}.
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.4\textheight]
+        {figures/DTW_clustering.jpeg}}
+        \caption{\label{fig:DTW-clustering} Plot showing the application of hierarchical clustering to the DTW output when applied to the SWC dataset.}
+\end{figure}
+
+Finally, we applied the same DTW and clustering techniques to the SWP dataset. If the SWP dataset showed similar clusters, then this could help future irrigation planning. That is, if our time series for change in soil water content produced the same clusters as our time series for stem water potential, then this could indicate that the soils within each cluster behave similarly and can be irrigated with similar regimes in the future. Unfortunately, our results (\autoref{fig:SWP-clustering}) did not show similar clusters. This is not surprising, given our findings in \autoref{sec: Scatter-SWP}, in which we saw that a correlation between SWP and SWC could only be established when controling for area.
+
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.4\textheight]
+        {figures/SWP_clustering.jpeg}}
+        \caption{\label{fig:SWP-clustering} Plot showing the application of hierarchical clustering to the DTW output when applied to the SWP dataset.}
+\end{figure}
 
 
 \subsection{Effect of Slope and Soil Depth on Water Loss Rate}

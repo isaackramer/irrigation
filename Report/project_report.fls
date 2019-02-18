@@ -352,6 +352,15 @@ INPUT ./figures/SWP_scatter_all.pdf
 INPUT figures/SWP_facet.pdf
 INPUT ./figures/SWP_facet.pdf
 INPUT ./figures/SWP_facet.pdf
+INPUT figures/DTW_Matrix.jpeg
+INPUT ./figures/DTW_Matrix.jpeg
+INPUT ./figures/DTW_Matrix.jpeg
+INPUT figures/DTW_clustering.jpeg
+INPUT ./figures/DTW_clustering.jpeg
+INPUT ./figures/DTW_clustering.jpeg
+INPUT figures/SWP_clustering.jpeg
+INPUT ./figures/SWP_clustering.jpeg
+INPUT ./figures/SWP_clustering.jpeg
 INPUT figures/irrigation_max.pdf
 INPUT ./figures/irrigation_max.pdf
 INPUT ./figures/irrigation_max.pdf
