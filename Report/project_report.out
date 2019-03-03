@@ -1,8 +1,11 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Data}{}% 2
-\BOOKMARK [1][-]{section.3}{Objectives}{}% 3
+\BOOKMARK [1][-]{section.3}{Objectives \046 Problem Description}{}% 3
 \BOOKMARK [1][-]{section.4}{Data Cleaning}{}% 4
 \BOOKMARK [1][-]{section.5}{Results}{}% 5
 \BOOKMARK [2][-]{subsection.5.1}{Relationship between Plant Health and Soil Water Content}{section.5}% 6
 \BOOKMARK [2][-]{subsection.5.2}{Applications of Dynamic Time Warping and Clustering to Plant Health and Soil Water Content}{section.5}% 7
 \BOOKMARK [2][-]{subsection.5.3}{Effect of Slope and Soil Depth on Water Loss Rate}{section.5}% 8
+\BOOKMARK [1][-]{section.6}{Conclusions \046 Future Work}{}% 9
+\BOOKMARK [1][-]{appendix.A}{Extended description of the data}{}% 10
+\BOOKMARK [1][-]{appendix.B}{Extended description of data cleaning}{}% 11

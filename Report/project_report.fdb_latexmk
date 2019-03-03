@@ -1,8 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1550509989 "project_report.tex" "project_report.pdf" "project_report" 1550509990
-  "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1480098666 2900 1537cc8184ad1792082cd229ecc269f4 ""
+["pdflatex"] 1551619173 "project_report.tex" "project_report.pdf" "project_report" 1551619178
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1480098696 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm" 1480098698 1120 200be8b775682cdf80acad4be5ef57e4 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
@@ -36,7 +34,6 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1480098733 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1480098733 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb" 1480098733 28902 2f5c04fd2884d1878057baa5aad22765 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1480098737 136101 f533469f523533d38317ab5729d00c8a ""
   "/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1480098806 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1480098815 1458 43ab4710dc82f3edeabecd0d099626b2 ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty" 1480098815 8237 3b62ef1f7e2c23a328c814b3893bc11f ""
@@ -202,15 +199,16 @@
   "figures/SWP_clustering.jpeg" 1550508553 48957 da10a42b6f0828fe80a2a2e27c65bb04 ""
   "figures/SWP_facet.pdf" 1548341069 50627 fa692267e66266355cb8fd8c61384f97 ""
   "figures/SWP_scatter_all.pdf" 1548329412 15315 1c5c7da08014a27b4f10049ca4a3152a ""
+  "figures/facet.pdf" 1548059261 544374 223e6f951915f55b27c2d4fc212a5e56 ""
   "figures/facet_bad_data.pdf" 1548250536 696083 af7fe0b94a25a2a912fc106666ab8ce7 ""
   "figures/irrigation_max.pdf" 1548253739 21777 d3c561a467effccabca9e4db4729be1a ""
   "figures/slope_loss.pdf" 1548254793 11324 9aef93bb047d68a5f34a3baa63f949d7 ""
   "figures/soil_depth_loss.pdf" 1548254794 12795 40df205e8c66999dd3a25243f8c6942a ""
-  "project_report.aux" 1550509990 4805 5d288b93bdf587b0648f4513b2d231db ""
-  "project_report.out" 1550509990 563 6a8b24dbd9a5870bdc38f3fb8c6fafcf ""
-  "project_report.tex" 1550509989 16451 e1a724645d8f7764b3f9e9d26e0419b0 ""
+  "project_report.aux" 1551619178 5756 a55c2358aa6d26de19469070d4282571 ""
+  "project_report.out" 1551619178 794 74442deef43eb56c7e996e937bd4d325 ""
+  "project_report.tex" 1551619168 17356 b726c2fdcae7f652b4a2408dd239012b ""
   (generated)
+  "project_report.log"
   "project_report.pdf"
   "project_report.aux"
-  "project_report.log"
   "project_report.out"

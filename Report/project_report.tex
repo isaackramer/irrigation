@@ -7,18 +7,19 @@
 \usepackage{comment}
 \usepackage{booktabs}
 \usepackage{hyperref}
+\usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage{chemmacros}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+
 \usepackage{hyperref}
 \MakeOuterQuote{"}
 \begin{document}
 
 \title{The Kendall Irrigation Project}
 \subtitle{Using Data to Analyze Heterogeneity in Irrigation Patterns and Plant Water Uptake}
-\author{Isaac Kramer, Noam Gottlieb, Karin Osadon \\
+\author{Isaac Kramer (isaac.kramer@mail.huji.ac.il)\\ Noam Gottlieb (noam.gottlieb2@mail.huji.ac.il)\\Karin Osadon (karin.osadon@mail.huji.ac.il) \\
         The Hebrew University of Jerusalem}
 \date{March 2019}
 \subject{Needle in a Data Haystack\\
@@ -33,9 +34,6 @@ Introduction to Data Science (67978) \\}
 \begin{titlepage}
 		\maketitle
 
-    \begin{abstract}
-    This is the paper's abstract \ldots
-    \end{abstract}
 \end{titlepage}\setstretch{1.15}
 
 
@@ -50,43 +48,18 @@ During 2017-2018, this team conducted a field experiment in a wine vineyard loca
 As a part of their ongoing experiment, the researchers divided a section of the vineyard into 10 "zones." Over the course of the growing season, the different zones were subjected to different irrigation regimes and the plant health within each of the zones was measured.
 
 \section{Data}
-The research team provided us with the following data associated with this experiment:
+The research team provided us with the following data associated with this experiment: readings from 30 Time-Domain Reflectometry (TDR) sensors, measurements of the Stem Water Potential (SWP) for 30 plants, the quantity of irrigation water supplied to each of zones, selected soil properties at the location of the TDR sensors. A full description fo each of the variables is available in \autoref{sec:data-appendix}
 
-\begin{enumerate}
-\item Readings from 30 Time-Domain Reflectometry (TDR) sensors. The TDR sensors were used to measure soil volumetric water content, soil temperature, and soil electrical conductivity. Volumetric water content ($\theta$) is defined as $$\theta = \frac{V_w}{V_t}$$ where $V_w$ is the volume of water in a given soil unit and $V_t$ is the total volume of the soil unit (i.e., it includes the volume of air, solid, and water in the soil). Volumetric water content is by definition dimensionless and its values can be reported as a decimal or percent. Electrical conductivity is useful as an indication of the quantity of salts (Na\pch, Ca\pch[2], Mg\pch[2], etc...) in a soil. While many salts are essential to plant development, concentrations above specific thresholds can cause significant declines in plant growth.
 
-The 30 TDR sensors were divided such that three were placed at different locations within each of the 10 zones. Each of the TDR sensors was buried in the soil at a depth of 30 cm. Measurements were recorded every five minutes. We received data corresponding to the three month period beginning in May 2018.
 
-\item Measurements of the Stem Water Potential (SWP) for 30 plants. SWP measurements are useful as an indicator of the degree water stress a plant is experiencing. Readings that are highly negative correspond to high levels of water stress, while readings that are closer to zero indicate that a plant is not experiencing water stress.
-
-Each of the 30 selected plants was adjacent to one of the previously mentioned TDR sensors. The condition of the selected plants should, in theory, reflect the condition of the adjacent soil. The SWP data that we received corresponds to weekly measurements taken during the period from May to July 2018.
-
-\item The quantity of irrigation water supplied to each of zones. Decisions about whether to irrigate each of the given zones were made weekly, based on the SWP measurements. If the SWP measurements indicated the plants in a particular zone were not experiencing water stress, they were not irrigated that week. If the SWP measurements indicated water stress, the plants were irrigated based on the degree of stress exhibited (i.e., more stressed plants larger irrigation inputs than plants with lower levels of stress).
-
-The irrigation quantities were reported in terms of volume of water per dunam (i.e., mm). All irrigation in the vineyard was done using freshwater.
-
- \item Selected soil properties at the location of the TDR sensors. This data included the aspect, slope, elevation, and total soil depth in the area where each of the TDR sensors was placed.
-\end{enumerate}
-
-\section{Objectives}
-Our objectives for this project were to mine the dataset to explore possible connections between soil conditions, plant water stress, and soil properties. Specifically, we defined the following sub-objectives:
-\begin{itemize}
-\item Can we establish a connection between soil water content and the appearance of stress in that plant?
-\item Can we determine which soils behave most similarly? For each sensor we have data for the following variables: Water Content, Temperature, and Electrical Conductivity. If we make these three values a vector (i.e., one vector per sensor per time step) can we identify soils that are most similar to each other?
-\item Initial analysis of the TDR measurements indicated that following irrigation events, some areas lost water at much faster rates than others. We investigated whether this phenomenon can be connected soil properties (slope and soil depth).
-\item more goals, if there are any...
-\end{itemize}
+\section{Objectives \& Problem Description}
+Our objectives for this project were to mine the dataset to explore possible connections between soil conditions, plant water stress, and soil properties.
 
 \section{Data Cleaning}
-Our first step in the project was to do a preliminary clean of the TDR data. We updated the date-time format, simplified the column headers, and ensured cells with missing values were represented uniformly. This was accomplished using the script data\_clean.py.
+Our first step in the project was to do a preliminary clean of the TDR data. See \autoref{sec:Data-cleaning-appendix} for a detailed description.
 
-We continued the data cleaning process by removing values at times when the sensors appeared to be malfunctioning. \autoref{fig:VWC-bad-data} shows plots of the volumetric water content (\%) for each of the 30 sensors during the duration of the measurement period. The plots also show dates of irrigation inputs (mm of water). The script facet\_with\_irrigation.py was used to build these plots. From these plots, we are able to see clearly that certain sensors were not functioning properly. For example, Sensor 1 in Area C shows no response to changes in water content, while Sensor 2 in Area I makes extreme jumps. Before proceeding with our analysis we removed all results from the sensors that did not appear to be working properly.
 
-\begin{figure}[!htb]
-        \center{\includegraphics[height=.95\textheight]
-        {figures/facet_bad_data.pdf}}
-        \caption{\label{fig:VWC-bad-data} Plots showing the volumetric water content and irrigation inputs against time before removing data from malfunctioning sensors. The script facet\_with\_irrigation.py was used to build these plots.}
-\end{figure}
+
 
 \section{Results}
 \subsection{Relationship between Plant Health and Soil Water Content}\label{sec:Scatter-SWP}
@@ -108,39 +81,26 @@ Dividing the data according to sensor, however, we begin to see actual trends. I
         \caption{\label{fig:SWP_facet} Scatter plot showing the Stem Water Potential against Volumetric Water Content (SWP\_scatter.py).}
 \end{figure}
 
-\begin{table}[!htb]
+
+\begin{table}[!htb]\label{tab:linear}
 \centering
 \caption{R-Squared values from linear models of SWP as a function of SWC}
-\label{tab:linear}
-\begin{tabular}{@{}cc@{}}
+\begin{tabular}{@{}llllll@{}}
 \toprule
-\textbf{Sensor} & \textbf{R-Squared} \\ \midrule
-A1            & 0.44               \\
-A2            & 0.70               \\
-A3            & 0.58               \\
-B1            & 0.53               \\
-B2            & 0.57               \\
-B3            & 0.41               \\
-C2            & 0.60               \\
-C3            & 0.36               \\
-D1            & 0.00               \\
-D2            & 0.00               \\
-D3            & 0.10               \\
-E1            & 0.38               \\
-E3            & 0.30               \\
-F1            & 0.09               \\
-F2            & 0.27               \\
-F3            & 0.38               \\
-G1            & 0.45               \\
-H1            & 0.341              \\
-H2            & 0.17               \\
-H3            & 0.04               \\
-I1            & 0.45               \\
-I3            & 0.63               \\
-J2            & 0.39               \\
-J3            & 0.64               \\ \bottomrule
+Sensor & R-Squared & Sensor & R-Squared & Sensor & R-Squared \\ \midrule
+A1     & 0.44      & D1     & 0.00      & G1     & 0.45      \\
+A2     & 0.70      & D2     & 0.00      & H1     & 0.34      \\
+A3     & 0.58      & D3     & 0.10      & H2     & 0.17      \\
+B1     & 0.53      & E1     & 0.38      & H3     & 0.04      \\
+B2     & 0.57      & E3     & 0.30      & I1     & 0.45      \\
+B3     & 0.41      & F1     & 0.09      & I3     & 0.63      \\
+C2     & 0.60      & F2     & 0.27      & J2     & 0.39      \\
+C3     & 0.36      & F3     & 0.38      & J3     & 0.64      \\ \bottomrule
 \end{tabular}
 \end{table}
+
+
+
 
 \subsection{Applications of Dynamic Time Warping and Clustering to Plant Health and Soil Water Content}
 We continued to explore the relationship between soil water content and stem water potential through the application of dynamic time warping (DTW) and clustering techniques. DTW is a tool used to measure the similarity between time series data. It can be used to identify similarity in cases when the sequences move at different speeds or experience different amplitudes. We believe that this was an appropriate method to use with the current dataset because it could identify identify soils (i.e., sensors) that behave relatively similarly, even when their specific wetting and drying speeds and overall maximum are different.
@@ -161,7 +121,7 @@ Next, we sought to apply a clustering algorithm to help us identify which soils 
         \caption{\label{fig:DTW-clustering} Plot showing the application of hierarchical clustering to the DTW output when applied to the SWC dataset.}
 \end{figure}
 
-Finally, we applied the same DTW and clustering techniques to the SWP dataset. If the SWP dataset showed similar clusters, then this could help future irrigation planning. That is, if our time series for change in soil water content produced the same clusters as our time series for stem water potential, then this could indicate that the soils within each cluster behave similarly and can be irrigated with similar regimes in the future. Unfortunately, our results (\autoref{fig:SWP-clustering}) did not show similar clusters. This is not surprising, given our findings in \autoref{sec: Scatter-SWP}, in which we saw that a correlation between SWP and SWC could only be established when controling for area.
+Finally, we applied the same DTW and clustering techniques to the SWP dataset. If the SWP dataset showed similar clusters, then this could help future irrigation planning. That is, if our time series for change in soil water content produced the same clusters as our time series for stem water potential, then this could indicate that the soils within each cluster behave similarly and can be irrigated with similar regimes in the future. Unfortunately, our results (\autoref{fig:SWP-clustering}) did not show similar clusters. This is not surprising, given our findings in \autoref{sec:Scatter-SWP}, in which we saw that a correlation between SWP and SWC could only be established when controling for area.
 
 
 \begin{figure}[!htb]
@@ -186,6 +146,8 @@ Unfortunately, our results showed little connection between the "average loss ra
 
 
 
+
+
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.495\textwidth]{figures/slope_loss.pdf}
@@ -194,9 +156,45 @@ Unfortunately, our results showed little connection between the "average loss ra
     \label{fig:slope}
 \end{figure}
 
+\section{Conclusions \& Future Work}
+For our project we examined data associated with an irrigation project in Israel. Our primary goal was to explore the relationship between plant health and soil conditions. We were able to observe a clear correlation between SWC and SWP, when controlling for treatment area. Other attempts to establish relationships between the variables in our data set were less conclusive. The application of DTW to the SWC and the SWP did not reveal the existence of the same communities. We were not able to find a connection between slope, soil depth, and water loss rates. In the future, more continuous datasets could aid in solving this problem. Instead of weekly measurements of SWP, continuous measurements of sap flow and/or transpiration rates may give a deeper understanding of plant water uptake. This could help in our understanding of how SWC affects SWP. Greater understanding of this could in turn help farmers more carefully schedule irrigation applications, leading to cost savings and improved plant growth.
 
 
 
+\appendix
 
+\section{Extended description of the data}\label{sec:data-appendix}
+\begin{enumerate}
+\item Readings from 30 Time-Domain Reflectometry (TDR) sensors. The TDR sensors were used to measure soil volumetric water content, soil temperature, and soil electrical conductivity. Volumetric water content ($\theta$) is defined as $$\theta = \frac{V_w}{V_t}$$ where $V_w$ is the volume of water in a given soil unit and $V_t$ is the total volume of the soil unit (i.e., it includes the volume of air, solid, and water in the soil). Volumetric water content is by definition dimensionless and its values can be reported as a decimal or percent. Electrical conductivity is useful as an indication of the quantity of salts (Na\pch, Ca\pch[2], Mg\pch[2], etc...) in a soil. While many salts are essential to plant development, concentrations above specific thresholds can cause significant declines in plant growth.
+
+The 30 TDR sensors were divided such that three were placed at different locations within each of the 10 zones. Each of the TDR sensors was buried in the soil at a depth of 30 cm. Measurements were recorded every five minutes. We received data corresponding to the three month period beginning in May 2018.
+
+\item Measurements of the Stem Water Potential (SWP) for 30 plants. SWP measurements are useful as an indicator of the degree water stress a plant is experiencing. Readings that are highly negative correspond to high levels of water stress, while readings that are closer to zero indicate that a plant is not experiencing water stress.
+
+Each of the 30 selected plants was adjacent to one of the previously mentioned TDR sensors. The condition of the selected plants should, in theory, reflect the condition of the adjacent soil. The SWP data that we received corresponds to weekly measurements taken during the period from May to July 2018.
+
+\item The quantity of irrigation water supplied to each of zones. Decisions about whether to irrigate each of the given zones were made weekly, based on the SWP measurements. If the SWP measurements indicated the plants in a particular zone were not experiencing water stress, they were not irrigated that week. If the SWP measurements indicated water stress, the plants were irrigated based on the degree of stress exhibited (i.e., more stressed plants larger irrigation inputs than plants with lower levels of stress).
+
+The irrigation quantities were reported in terms of volume of water per dunam (i.e., mm). All irrigation in the vineyard was done using freshwater.
+
+ \item Selected soil properties at the location of the TDR sensors. This data included the aspect, slope, elevation, and total soil depth in the area where each of the TDR sensors was placed.
+\end{enumerate}
+
+\section{Extended description of data cleaning}\label{sec:Data-cleaning-appendix}
+We updated the date-time format, simplified the column headers, and ensured cells with missing values were represented uniformly. This was accomplished using the script data\_clean.py.
+
+We continued the data cleaning process by removing values at times when the sensors appeared to be malfunctioning. \autoref{fig:VWC-bad-data} shows plots of the volumetric water content (\%) for each of the 30 sensors during the duration of the measurement period. The plots also show dates of irrigation inputs (mm of water). The script facet\_with\_irrigation.py was used to build these plots. From these plots, we are able to see clearly that certain sensors were not functioning properly. For example, Sensor 1 in Area C shows no response to changes in water content, while Sensor 2 in Area I makes extreme jumps. Before proceeding with our analysis we removed all results from the sensors that did not appear to be working properly. The updated plots, with only the measurements used in the data analysis, are shown in \autoref{fig:VWC-clean-data}.
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.90\textheight]
+        {figures/facet_bad_data.pdf}}
+        \caption{\label{fig:VWC-bad-data} Plots showing the volumetric water content and irrigation inputs against time before removing data from malfunctioning sensors. The script facet\_with\_irrigation.py was used to build these plots.}
+\end{figure}
+
+\begin{figure}[!htb]
+        \center{\includegraphics[height=.90\textheight]
+        {figures/facet.pdf}}
+        \caption{\label{fig:VWC-clean-data} Plots showing the volumetric water content and irrigation inputs against time after removing data from malfunctioning sensors.}
+\end{figure}
 
 \end{document}
